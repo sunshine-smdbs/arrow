@@ -74,7 +74,7 @@ int64_t StreamReader::num_rows() const {
 }
 
 StreamReader& StreamReader::operator>>(bool& v) {
-  CheckColumn(Type::BOOLEAN, ConvertedType::NONE);
+  CheckColumn(Type::BOOLEAN, ConvertedType::NONE, 8);
   Read<BoolReader>(&v);
   return *this;
 }
@@ -86,49 +86,49 @@ StreamReader& StreamReader::operator>>(int8_t& v) {
 }
 
 StreamReader& StreamReader::operator>>(uint8_t& v) {
-  CheckColumn(Type::INT32, ConvertedType::UINT_8);
+  CheckColumn(Type::INT32, ConvertedType::UINT_8, 8);
   Read<Int32Reader, int32_t>(&v);
   return *this;
 }
 
 StreamReader& StreamReader::operator>>(int16_t& v) {
-  CheckColumn(Type::INT32, ConvertedType::INT_16);
+  CheckColumn(Type::INT32, ConvertedType::INT_16, 16);
   Read<Int32Reader, int32_t>(&v);
   return *this;
 }
 
 StreamReader& StreamReader::operator>>(uint16_t& v) {
-  CheckColumn(Type::INT32, ConvertedType::UINT_16);
+  CheckColumn(Type::INT32, ConvertedType::UINT_16, 16);
   Read<Int32Reader, int32_t>(&v);
   return *this;
 }
 
 StreamReader& StreamReader::operator>>(int32_t& v) {
-  CheckColumn(Type::INT32, ConvertedType::INT_32);
+  CheckColumn(Type::INT32, ConvertedType::INT_32, 32);
   Read<Int32Reader>(&v);
   return *this;
 }
 
 StreamReader& StreamReader::operator>>(uint32_t& v) {
-  CheckColumn(Type::INT32, ConvertedType::UINT_32);
+  CheckColumn(Type::INT32, ConvertedType::UINT_32, 32);
   Read<Int32Reader>(reinterpret_cast<int32_t*>(&v));
   return *this;
 }
 
 StreamReader& StreamReader::operator>>(int64_t& v) {
-  CheckColumn(Type::INT64, ConvertedType::INT_64);
+  CheckColumn(Type::INT64, ConvertedType::INT_64, 64);
   Read<Int64Reader>(&v);
   return *this;
 }
 
 StreamReader& StreamReader::operator>>(uint64_t& v) {
-  CheckColumn(Type::INT64, ConvertedType::UINT_64);
+  CheckColumn(Type::INT64, ConvertedType::UINT_64, 64);
   Read<Int64Reader>(reinterpret_cast<int64_t*>(&v));
   return *this;
 }
 
 StreamReader& StreamReader::operator>>(std::chrono::milliseconds& v) {
-  CheckColumn(Type::INT64, ConvertedType::TIMESTAMP_MILLIS);
+  CheckColumn(Type::INT64, ConvertedType::TIMESTAMP_MILLIS, 64);
   int64_t tmp;
   Read<Int64Reader>(&tmp);
   v = std::chrono::milliseconds{tmp};
@@ -136,7 +136,7 @@ StreamReader& StreamReader::operator>>(std::chrono::milliseconds& v) {
 }
 
 StreamReader& StreamReader::operator>>(std::chrono::microseconds& v) {
-  CheckColumn(Type::INT64, ConvertedType::TIMESTAMP_MICROS);
+  CheckColumn(Type::INT64, ConvertedType::TIMESTAMP_MICROS, 64);
   int64_t tmp;
   Read<Int64Reader>(&tmp);
   v = std::chrono::microseconds{tmp};
@@ -144,13 +144,13 @@ StreamReader& StreamReader::operator>>(std::chrono::microseconds& v) {
 }
 
 StreamReader& StreamReader::operator>>(float& v) {
-  CheckColumn(Type::FLOAT, ConvertedType::NONE);
+  CheckColumn(Type::FLOAT, ConvertedType::NONE, 32);
   Read<FloatReader>(&v);
   return *this;
 }
 
 StreamReader& StreamReader::operator>>(double& v) {
-  CheckColumn(Type::DOUBLE, ConvertedType::NONE);
+  CheckColumn(Type::DOUBLE, ConvertedType::NONE, 64);
   Read<DoubleReader>(&v);
   return *this;
 }
@@ -174,79 +174,79 @@ StreamReader& StreamReader::operator>>(std::string& v) {
 }
 
 StreamReader& StreamReader::operator>>(optional<bool>& v) {
-  CheckColumn(Type::BOOLEAN, ConvertedType::NONE);
+  CheckColumn(Type::BOOLEAN, ConvertedType::NONE, 8);
   ReadOptional<BoolReader>(&v);
   return *this;
 }
 
 StreamReader& StreamReader::operator>>(optional<int8_t>& v) {
-  CheckColumn(Type::INT32, ConvertedType::INT_8);
+  CheckColumn(Type::INT32, ConvertedType::INT_8, 8);
   ReadOptional<Int32Reader, int32_t>(&v);
   return *this;
 }
 
 StreamReader& StreamReader::operator>>(optional<uint8_t>& v) {
-  CheckColumn(Type::INT32, ConvertedType::UINT_8);
+  CheckColumn(Type::INT32, ConvertedType::UINT_8, 8);
   ReadOptional<Int32Reader, int32_t>(&v);
   return *this;
 }
 
 StreamReader& StreamReader::operator>>(optional<int16_t>& v) {
-  CheckColumn(Type::INT32, ConvertedType::INT_16);
+  CheckColumn(Type::INT32, ConvertedType::INT_16, 16);
   ReadOptional<Int32Reader, int32_t>(&v);
   return *this;
 }
 
 StreamReader& StreamReader::operator>>(optional<uint16_t>& v) {
-  CheckColumn(Type::INT32, ConvertedType::UINT_16);
+  CheckColumn(Type::INT32, ConvertedType::UINT_16, 16);
   ReadOptional<Int32Reader, int32_t>(&v);
   return *this;
 }
 
 StreamReader& StreamReader::operator>>(optional<int32_t>& v) {
-  CheckColumn(Type::INT32, ConvertedType::INT_32);
+  CheckColumn(Type::INT32, ConvertedType::INT_32, 32);
   ReadOptional<Int32Reader>(&v);
   return *this;
 }
 
 StreamReader& StreamReader::operator>>(optional<uint32_t>& v) {
-  CheckColumn(Type::INT32, ConvertedType::UINT_32);
+  CheckColumn(Type::INT32, ConvertedType::UINT_32, 32);
   ReadOptional<Int32Reader>(&v);
   return *this;
 }
 
 StreamReader& StreamReader::operator>>(optional<int64_t>& v) {
-  CheckColumn(Type::INT64, ConvertedType::INT_64);
+  CheckColumn(Type::INT64, ConvertedType::INT_64, 64);
   ReadOptional<Int64Reader>(&v);
   return *this;
 }
 
 StreamReader& StreamReader::operator>>(optional<uint64_t>& v) {
-  CheckColumn(Type::INT64, ConvertedType::UINT_64);
+  CheckColumn(Type::INT64, ConvertedType::UINT_64, 64);
   ReadOptional<Int64Reader>(&v);
   return *this;
 }
 
 StreamReader& StreamReader::operator>>(optional<float>& v) {
-  CheckColumn(Type::FLOAT, ConvertedType::NONE);
+  CheckColumn(Type::FLOAT, ConvertedType::NONE, 32);
   ReadOptional<FloatReader>(&v);
   return *this;
 }
 
 StreamReader& StreamReader::operator>>(optional<double>& v) {
-  CheckColumn(Type::DOUBLE, ConvertedType::NONE);
+  CheckColumn(Type::DOUBLE, ConvertedType::NONE, 64);
   ReadOptional<DoubleReader>(&v);
   return *this;
 }
 
 StreamReader& StreamReader::operator>>(optional<std::chrono::milliseconds>& v) {
-  CheckColumn(Type::INT64, ConvertedType::TIMESTAMP_MILLIS);
+  CheckColumn(Type::INT64, ConvertedType::TIMESTAMP_MILLIS, 64);
   ReadOptional<Int64Reader, int64_t>(&v);
   return *this;
 }
 
 StreamReader& StreamReader::operator>>(optional<std::chrono::microseconds>& v) {
-  CheckColumn(Type::INT64, ConvertedType::TIMESTAMP_MICROS);
+  CheckColumn(Type::INT64, ConvertedType::TIMESTAMP_MICROS, 64);
   ReadOptional<Int64Reader, int64_t>(&v);
   return *this;
 }
@@ -501,9 +501,10 @@ void StreamReader::CheckColumn(Type::type physical_type,
   }
   // Length must be exact.
   if (length != node->type_length()) {
+    printf("Before Crash\n");
     throw ParquetException("Column length mismatch.  Column '" + node->name() +
                            "' has length " + std::to_string(node->type_length()) +
-                           "] not " + std::to_string(length));
+                           " not " + std::to_string(length));
   }
 }  // namespace parquet
 
